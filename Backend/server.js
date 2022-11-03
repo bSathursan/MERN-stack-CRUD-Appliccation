@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(postRoutes)
 
 
-const port = 8000 
+const port = 5000 
 const db_url = 'mongodb+srv://mfc:mfc@mernapp.guikgld.mongodb.net/MFCTASK?retryWrites=true&w=majority'
 
 mongoose.connect(db_url, {

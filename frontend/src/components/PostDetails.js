@@ -1,37 +1,28 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from 'react';
+import {useParams} from 'react-router-dom';
 
-export default class PostDetails extends Component {
+const PostDetails = () => {
+  const { id } = useParams(); 
+  const [book, setBook] = useState({name: '', description:'', price:'', author:''});
 
-    constructor(props){
-        super(props);
 
-        this.state={
-            post:{}
-        }
+  useEffect(() => {
+    const postBook = async () => {
+      const response = await fetch(`http://localhost:5000/post/${id}`); 
+      const data = await response.json();
+      setBook(data);
     }
 
-    componentDidMount(){
-        const id = this.props.match.params.id;
+    postBook();
+  }, [id]);
 
-        axios.get(`http://localhost:8000/post/${id}`).then((res) => {
-            if(res.data.success){
-                this.setState({
-                    post:res.data.post
-                })
-                console.log(this.state.post)
-            }
-        })
-        .catch((error) => {
-            console.log(error.res);
-          });
-    }
+  return (
+    <div>
+      <p>{book?.name}</p>
+    </div>
+  );
 
-  render() {
-    return (
-      <div>
-        Post Details
-      </div>
-    )
-  }
 }
+
+export default PostDetails;
+

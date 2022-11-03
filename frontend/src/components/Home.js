@@ -16,7 +16,7 @@ export default class Home extends Component {
 
   retrivePosts() {
     axios
-      .get("http://localhost:8000/posts")
+      .get("http://localhost:5000/posts")
       .then((res) => {
         if (res.data.success) {
           this.setState({
@@ -31,7 +31,7 @@ export default class Home extends Component {
   }
 
   onDelete = (id) => {
-    axios.delete(`http://localhost:8000/post/delete/${id}`).then((res) => {
+    axios.delete(`http://localhost:5000/posts/delete/${id}`).then((res) => {
       alert("Deleted Successfully");
       this.retrivePosts();
     })

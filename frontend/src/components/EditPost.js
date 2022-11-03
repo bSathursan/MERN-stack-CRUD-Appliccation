@@ -27,6 +27,7 @@ export default class EditPost extends Component {
     e.preventDefault();
     const id = this.props.match.params.id;
 
+
     const { name, description, price, author } = this.state;
 
     const data = {
@@ -37,8 +38,9 @@ export default class EditPost extends Component {
     };
     console.log(data);
 
-    axios.put(`http://localhost:8000/post/update/${id}`, data).then((res) => {
+    axios.put(`http://localhost:5000/post/update/${id}`, data).then((res) => {
       if (res.data.success) {
+        alert("Book Updated Successfully")
         this.setState({
           name: "",
           description: "",
@@ -50,10 +52,11 @@ export default class EditPost extends Component {
     
   };
 
+
   componentDidMount(){
     const id = this.props.match.params.id;
 
-    axios.get(`http://localhost:8000/post/${id}`).then((res) => {
+    axios.get(`http://localhost:5000/post/${id}`).then((res) => {
         if(res.data.success){
             this.setState({
                 name:res.data.post.name,
@@ -64,72 +67,75 @@ export default class EditPost extends Component {
             console.log(this.state.post)
         }
     })
+    .catch((error) => {
+        console.log(error.res);
+      });
 }
 
   render() {
     return (
-      <div className="col-md mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Post</h1>
-      <form className="needs-validation" noValidate>
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            placeholder="Enter Name"
-            value={this.state.name}
-            onChange={this.handleInputChange}
-          />
-        </div>
+     <div className="col-md mt-4 mx-auto">
+        <h1 className="h3 mb-3 font-weight-normal">Add Your Book</h1>
+        <form className="needs-validation" noValidate>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              placeholder="Enter Name"
+              value={this.state.name}
+              onChange={this.handleInputChange}
+            />
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Description</label>
-          <input
-            type="text"
-            className="form-control"
-            name="description"
-            placeholder="Enter Description"
-            value={this.state.description}
-            onChange={this.handleInputChange}
-          />
-        </div>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Description</label>
+            <input
+              type="text"
+              className="form-control"
+              name="description"
+              placeholder="Enter Description"
+              value={this.state.description}
+              onChange={this.handleInputChange}
+            />
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Price</label>
-          <input
-            type="text"
-            className="form-control"
-            name="price"
-            placeholder="Enter Price"
-            value={this.state.price}
-            onChange={this.handleInputChange}
-          />
-        </div>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Price</label>
+            <input
+              type="text"
+              className="form-control"
+              name="price"
+              placeholder="Enter Price"
+              value={this.state.price}
+              onChange={this.handleInputChange}
+            />
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Author</label>
-          <input
-            type="text"
-            className="form-control"
-            name="author"
-            placeholder="Enter Author"
-            value={this.state.author}
-            onChange={this.handleInputChange}
-          />
-        </div>
+          <div className="form-group" style={{ marginBottom: "15px" }}>
+            <label style={{ marginBottom: "5px" }}>Author</label>
+            <input
+              type="text"
+              className="form-control"
+              name="author"
+              placeholder="Enter Author"
+              value={this.state.author}
+              onChange={this.handleInputChange}
+            />
+          </div>
 
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ margintop: "15px" }}
-          onClick={this.onSubmit}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp;Edit
-        </button>
-      </form>
-    </div>
+          <button
+            className="btn btn-success"
+            type="submit"
+            style={{ margintop: "15px" }}
+            onClick={this.onSubmit}
+          >
+            <i className="far fa-check-square"></i>
+            &nbsp;Submit
+          </button>
+        </form>
+      </div>
     )
   }
 }
