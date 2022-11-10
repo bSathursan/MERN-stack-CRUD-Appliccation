@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
 export default class EditPost extends Component {
-
   constructor(props) {
     super(props);
 
@@ -11,9 +10,7 @@ export default class EditPost extends Component {
       description: "",
       price: "",
       author: "",
-      
     };
-    
   }
 
   handleInputChange = (e) => {
@@ -27,8 +24,9 @@ export default class EditPost extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const id = this.props.match.params.id;
-
+    var i = window.location.href.split("/");
+    var sid = i[5];
+    // const id = this.props.match.params.id;
 
     const { name, description, price, author } = this.state;
 
@@ -40,9 +38,9 @@ export default class EditPost extends Component {
     };
     console.log(data);
 
-    axios.put(`http://localhost:5000/post/update/${id}`, data).then((res) => {
+    axios.put(`http://localhost:5000/post/update/${sid}`, data).then((res) => {
       if (res.data.success) {
-        alert("Book Updated Successfully")
+        alert("Book Updated Successfully");
         this.setState({
           name: "",
           description: "",
@@ -51,48 +49,48 @@ export default class EditPost extends Component {
         });
       }
     });
-    
   };
 
-
-  componentDidMount(){
-    var i = window.location.href.split('/');
-    var sid = i[5]
-console.log(i[5],"iiii");
+  componentDidMount() {
+    var i = window.location.href.split("/");
+    var sid = i[5];
+    console.log(i[5], "iiii");
     const id = "6364854915944932dd6301d7";
-console.log(this.props.match,"this.props.match");
-    axios.get(`http://localhost:5000/post/${sid}`).then((res) => {
-        if(res.data.success){
-            this.setState({
-                name:res.data.post.name,
-                description:res.data.post.description,
-                price:res.data.post.price,
-                author:res.data.post.author
-            })
-            console.log(this.state.post)
+    console.log(this.props.match, "this.props.match");
+    axios
+      .get(`http://localhost:5000/post/${sid}`)
+      .then((res) => {
+        if (res.data.success) {
+          this.setState({
+            name: res.data.post.name,
+            description: res.data.post.description,
+            price: res.data.post.price,
+            author: res.data.post.author,
+          });
+          console.log(this.state.post);
         }
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log(error.res);
       });
 
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//         this.setState({ loading: true });
-//         axios.get(`http://localhost:5000/post/${this.posts._id}`, { headers: { 'X-Auth-Token': token } }).then((res) =>
-//             this.setState({
-//                 name: res.posts.data.name,
-//                 description: res.data.description,
-//                 price: res.data.price,
-//                 author: res.data.author,
-//             })
-//         );
-//     }
-}
+    //     const token = localStorage.getItem('token');
+    //     if (token) {
+    //         this.setState({ loading: true });
+    //         axios.get(`http://localhost:5000/post/${this.posts._id}`, { headers: { 'X-Auth-Token': token } }).then((res) =>
+    //             this.setState({
+    //                 name: res.posts.data.name,
+    //                 description: res.data.description,
+    //                 price: res.data.price,
+    //                 author: res.data.author,
+    //             })
+    //         );
+    //     }
+  }
 
   render() {
     return (
-     <div className="col-md mt-4 mx-auto">
+      <div className="col-md mt-4 mx-auto">
         <h1 className="h3 mb-3 font-weight-normal">Add Your Book</h1>
         <form className="needs-validation" noValidate>
           <div className="form-group" style={{ marginBottom: "15px" }}>
@@ -154,6 +152,6 @@ console.log(this.props.match,"this.props.match");
           </button>
         </form>
       </div>
-    )
+    );
   }
 }
