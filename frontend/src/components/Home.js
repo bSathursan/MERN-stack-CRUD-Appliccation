@@ -68,7 +68,7 @@ export default class Home extends Component {
                 <td>{posts.price}</td>
                 <td>{posts.author}</td>
                 <td>
-                  <a className="btn btn-warning" href={`/edit/${posts._id}`}>
+                  <a className="btn btn-warning" href={`/post/update/${posts._id}`}>
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
                   &nbsp;

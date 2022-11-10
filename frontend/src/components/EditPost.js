@@ -11,7 +11,9 @@ export default class EditPost extends Component {
       description: "",
       price: "",
       author: "",
+      
     };
+    
   }
 
   handleInputChange = (e) => {
@@ -54,9 +56,12 @@ export default class EditPost extends Component {
 
 
   componentDidMount(){
-    const id = this.props.match.params.id;
-
-    axios.get(`http://localhost:5000/post/${id}`).then((res) => {
+    var i = window.location.href.split('/');
+    var sid = i[5]
+console.log(i[5],"iiii");
+    const id = "6364854915944932dd6301d7";
+console.log(this.props.match,"this.props.match");
+    axios.get(`http://localhost:5000/post/${sid}`).then((res) => {
         if(res.data.success){
             this.setState({
                 name:res.data.post.name,
@@ -70,6 +75,19 @@ export default class EditPost extends Component {
     .catch((error) => {
         console.log(error.res);
       });
+
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//         this.setState({ loading: true });
+//         axios.get(`http://localhost:5000/post/${this.posts._id}`, { headers: { 'X-Auth-Token': token } }).then((res) =>
+//             this.setState({
+//                 name: res.posts.data.name,
+//                 description: res.data.description,
+//                 price: res.data.price,
+//                 author: res.data.author,
+//             })
+//         );
+//     }
 }
 
   render() {

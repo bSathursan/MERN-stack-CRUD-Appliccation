@@ -37,6 +37,7 @@ export default class CreatePost extends Component {
 
     axios.post("http://localhost:5000/post/save", data).then((res) => {
       if (res.data.success) {
+        alert("Book Successfully added")
         this.setState({
           name: "",
           description: "",
